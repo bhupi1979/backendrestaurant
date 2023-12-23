@@ -4,4 +4,4 @@ const userSchema=new mongoose.Schema({
     email:String,
     password:String
 })
-module.exports=mongoose.model('users',userSchema)
+module.exports= mongoose.models.users || mongoose.model('users',userSchema)
