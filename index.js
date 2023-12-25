@@ -49,5 +49,10 @@ app.get('/infra',async(req,res)=>{
       res.send(infra1)
       //console.warn(result)
 })
+app.delete("/infra/:id",async (req,res)=>{
+
+const result= await infra.deleteOne({_id:req.params.id})
+res.send(result)
+})
 /************end of infra api code */
 app.listen(5000)
