@@ -5,6 +5,7 @@ const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
 const user = require('./db/user')
+const infra = require('./db/Infra')
 //app.use(express.static('dist'))
 app.use(express.json()) // Make sure this middleware is applied before your route
 app.use(cors())
@@ -33,4 +34,20 @@ else
 res.send({resultuser:0})
       //console.warn(result)
 })
+/*******this api code for infra */
+app.post('/addinfra',async(req,res)=>{
+      let infra1=new infra(req.body)
+      console.log('the result is'+req.body.password)
+      let result= await infra1.save()
+      res.send(result)
+      //console.warn(result)
+})
+app.get('/infra',async(req,res)=>{
+      let infra1= await infra.find()
+      //cdconsole.log('the result is'+req.body.password)
+      //let result= await infra1.find().exec()
+      res.send(infra1)
+      //console.warn(result)
+})
+/************end of infra api code */
 app.listen(5000)
