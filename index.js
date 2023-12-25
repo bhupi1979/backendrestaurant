@@ -5,7 +5,7 @@ const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
 const user = require('./db/user')
-app.use(express.static('dist'))
+//app.use(express.static('dist'))
 app.use(express.json()) // Make sure this middleware is applied before your route
 app.use(cors())
 // app.use((req, res, next) => {
