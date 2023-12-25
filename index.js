@@ -37,7 +37,7 @@ res.send({resultuser:0})
 /*******this api code for infra */
 app.post('/addinfra',async(req,res)=>{
       let infra1=new infra(req.body)
-      console.log('the result is'+req.body.password)
+      //console.log('the result is'+req.body.password)
       let result= await infra1.save()
       res.send(result)
       //console.warn(result)
