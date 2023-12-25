@@ -54,5 +54,17 @@ app.delete("/infra/:id",async (req,res)=>{
 const result= await infra.deleteOne({_id:req.params.id})
 res.send(result)
 })
+app.get("/singleinfra/:id",async (req,res)=>{
+
+      const result= await infra.findOne({_id:req.params.id})
+      res.send(result)
+      })
+      app.put('/infra:id', async(req,res)=>{
+            let result=await infra.updateOne(
+                  {_id:req.params.id},
+                  {$set:req.body}
+            )
+            res.send(result)
+      })
 /************end of infra api code */
 app.listen(5000)
