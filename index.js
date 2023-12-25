@@ -56,7 +56,7 @@ res.send(result)
 })
 app.get("/singleinfra/:id",async (req,res)=>{
 
-      const result= await infra.findOne({_id:req.params.id})
+      let result= await infra.findOne({_id:req.params.id})
       res.send(result)
       })
       app.put('/infra:id', async(req,res)=>{
