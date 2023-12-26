@@ -89,7 +89,7 @@ app.get('/showproductcategory',async(req,res)=>{
       res.send(pc)
       //console.warn(result)
 })
-app.delete("/productcategory/:id",async (req,res)=>{
+app.delete("/productcategory:id",async (req,res)=>{
 
 const result= await productcategory.deleteOne({_id:req.params.id})
 res.send(result)
