@@ -6,6 +6,7 @@ const app = express()
 const mongoose = require('mongoose')
 const user = require('./db/user')
 const infra = require('./db/Infra')
+const productcategory = require('./db/productcategory.js')
 //app.use(express.static('dist'))
 app.use(express.json()) // Make sure this middleware is applied before your route
 app.use(cors())
@@ -35,6 +36,7 @@ res.send({resultuser:0})
       //console.warn(result)
 })
 /*******this api code for infra */
+/************************* */
 app.post('/addinfra',async(req,res)=>{
       let infra1=new infra(req.body)
       //console.log('the result is'+req.body.password)
@@ -66,5 +68,44 @@ app.get("/singleinfra/:id",async (req,res)=>{
             )
             res.send(result)
       })
+      /********end of api code for infra */
 /************end of infra api code */
+
+/****************apicode for product category */
+/********************************** */
+app.post('/productcategoryadd',async(req,res)=>{
+      let pc=new productcategory(req.body)
+      //console.log('the result is'+req.body.password)
+      let result= await pc.save()
+      res.send(result)
+      //console.warn(result)
+})
+app.get('/showproductcategory',async(req,res)=>{
+      let pc= await productcategory.find()
+      //cdconsole.log('the result is'+req.body.password)
+      //let result= await infra1.find().exec()
+      res.send(pc)
+      //console.warn(result)
+})
+app.delete("/productcategory/:id",async (req,res)=>{
+
+const result= await productcategory.deleteOne({_id:req.params.id})
+res.send(result)
+})
+app.get("/singleproductcategory/:id",async (req,res)=>{
+
+      let result= await productcategory.findOne({_id:req.params.id})
+      res.send(result)
+      })
+      app.put('/productcategory:id', async(req,res)=>{
+            let result=await productcategory.updateOne(
+                  {_id:req.params.id},
+                  {$set:req.body}
+            )
+            res.send(result)
+      })
+
+
+/************* */
+/**********end of product categoy */
 app.listen(5000)
