@@ -132,7 +132,7 @@ app.post('/productdetail',upload.single('image'),async(req,res)=>{
      res.send(result)
 })
 app.get('/showproductdetail',async(req,res)=>{
-      let pc= await productcategory.find()
+      let pc= await productdetail.find()
       //cdconsole.log('the result is'+req.body.password)
       //let result= await infra1.find().exec()
       res.send(pc)
