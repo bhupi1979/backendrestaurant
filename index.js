@@ -139,7 +139,7 @@ app.get('/showproductdetail',async(req,res)=>{
 })
 app.delete("/productdetail/:id",async (req,res)=>{
 
-      const result= await productcategory.deleteOne({_id:req.params.id})
+      const result= await productdetail.deleteOne({_id:req.params.id})
       res.send(result)
       })
 app.listen(5000)
