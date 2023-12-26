@@ -123,7 +123,7 @@ const storage = multer.diskStorage({
     
     const upload = multer({ storage: storage })
 app.post('/productdetail',upload.single('image'),async(req,res)=>{
-      const { name, price,descp,pcategory } = req.body;
+      const { name, price,descp,pcategory } = req.body
       let image=req.file.filename
       let pdetail=new productdetail({name,price,descp,pcategory,image})
       let result= await pdetail.save()
