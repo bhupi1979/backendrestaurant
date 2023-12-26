@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const user = require('./db/user')
 const infra = require('./db/Infra')
 const productcategory = require('./db/productcategory.js')
+const productdetail = require('./db/productdetail.js')
 //app.use(express.static('dist'))
 app.use(express.json()) // Make sure this middleware is applied before your route
 app.use(cors())
@@ -108,4 +109,33 @@ app.get("/singleproductcategory/:id",async (req,res)=>{
 
 /************* */
 /**********end of product categoy */
+//************add product detail */
+const multer  = require('multer')
+const storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, 'uploads')
+      },
+      filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() 
+        cb(null, uniqueSuffix+"-"+file.originalname)
+      }
+    })
+    
+    const upload = multer({ storage: storage })
+app.post('/productdetail',upload.single('image'),async(req,res)=>{
+      const { name, price,descp,pcategory } = req.body;
+      let image=req.file.filename;
+      let pdetail=new productdetail({
+            name,price,descp,pcategory,image
+      })
+      let result= await pdetail.save()
+     res.send(result)
+})
+app.get('/showproductdetail',async(req,res)=>{
+      let pc= await productcategory.find()
+      //cdconsole.log('the result is'+req.body.password)
+      //let result= await infra1.find().exec()
+      res.send(pc)
+      //console.warn(result)
+})
 app.listen(5000)
