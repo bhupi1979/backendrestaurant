@@ -99,7 +99,7 @@ app.get("/singleproductcategory/:id",async (req,res)=>{
       let result= await productcategory.findOne({_id:req.params.id})
       res.send(result)
       })
-      app.put('/productcategory:id', async(req,res)=>{
+      app.put('/productcategory/:id', async(req,res)=>{
             let result=await productcategory.updateOne(
                   {_id:req.params.id},
                   {$set:req.body}
@@ -137,4 +137,9 @@ app.get('/showproductdetail',async(req,res)=>{
       res.send(pc)
       //console.warn(result)
 })
+app.delete("/productdetail/:id",async (req,res)=>{
+
+      const result= await productcategory.deleteOne({_id:req.params.id})
+      res.send(result)
+      })
 app.listen(5000)
