@@ -113,7 +113,7 @@ app.get("/singleproductcategory/:id",async (req,res)=>{
 const multer  = require('multer')
 const storage = multer.diskStorage({
       destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+        cb(null, 'uploads')
       },
       filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() 
@@ -124,7 +124,7 @@ const storage = multer.diskStorage({
     const upload = multer({ storage: storage })
 app.post('/productdetail',upload.single('image'),async(req,res)=>{
       const { name, price,descp,pcategory } = req.body;
-      let image=req.file.filename;
+      let image=req.file.filename
       let pdetail=new productdetail({name,price,descp,pcategory,image})
       let result= await pdetail.save()
      res.send(result)
