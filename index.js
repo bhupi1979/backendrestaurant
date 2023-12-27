@@ -149,7 +149,7 @@ app.delete("/productdetail/:id",async (req,res)=>{
             let result= await productdetail.findOne({_id:req.params.id})
             res.send(result)
             })
-            app.put('/productdetail:id',upload.single('image'), async(req,res)=>{
+            app.put('/productdetail/:id',upload.single('image'), async(req,res)=>{
                   // const id=req.params.id
                   // const name=req.body.name
                   // const price=req.body.price
@@ -182,7 +182,10 @@ app.delete("/productdetail/:id",async (req,res)=>{
     existingProduct.price = price || existingProduct.price;
     existingProduct.descp=descp||existingProduct.descp
     existingProduct.pcategory=pcategory||existingProduct.pcategory
-    existingProduct.image = imagePath || existingProduct.image;
+    if (imagePath) {
+      existingProduct.image = imagePath;
+      console.log(imagePath)
+  }
 
     // Save the updated product
     let result=await existingProduct.save();
