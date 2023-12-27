@@ -164,8 +164,10 @@ app.delete("/productdetail/:id",async (req,res)=>{
     existingProduct.price = price || existingProduct.price;
     existingProduct.descp=descp||existingProduct.descp
     existingProduct.pcategory=pcategory||existingProduct.pcategory
-    existingProduct.image=imagePath||existingProduct.image
-
+//     existingProduct.image=imagePath||existingProduct.image
+if (imagePath) {
+      existingProduct.image = imagePath;
+  }
     // Save the updated product
     let result=await existingProduct.save();
                   res.send(result)
