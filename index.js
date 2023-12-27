@@ -178,14 +178,14 @@ app.delete("/productdetail/:id",async (req,res)=>{
     // Find the product by ID
     const productId = req.params.id;
     const existingProduct = await productdetail.findById(productId)
+    if (!existingProduct) {
+      return res.status(404).json({ error: 'Product not found' });
+  }
     existingProduct.name = name || existingProduct.name;
     existingProduct.price = price || existingProduct.price;
     existingProduct.descp=descp||existingProduct.descp
     existingProduct.pcategory=pcategory||existingProduct.pcategory
-    if (imagePath) {
-      existingProduct.image = imagePath;
-      console.log(imagePath)
-  }
+    existingProduct.image=imagePath||existingProduct.image
 
     // Save the updated product
     let result=await existingProduct.save();
