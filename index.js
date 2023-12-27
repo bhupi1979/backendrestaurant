@@ -8,6 +8,7 @@ const user = require('./db/user')
 const infra = require('./db/Infra')
 const productcategory = require('./db/productcategory.js')
 const productdetail = require('./db/productdetail.js')
+
 //app.use(express.static('dist'))
 app.use(express.json()) // Make sure this middleware is applied before your route
 app.use(cors())
@@ -123,7 +124,7 @@ const storage = multer.diskStorage({
       }
     })
   
-    const upload = multer({ storage: storage })
+     const upload = multer({ storage: storage })
 app.post('/productdetail',upload.single('image'),async(req,res)=>{
       const { name, price,descp,pcategory } = req.body
       let image=req.file.filename
@@ -148,7 +149,7 @@ app.delete("/productdetail/:id",async (req,res)=>{
             let result= await productdetail.findOne({_id:req.params.id})
             res.send(result)
             })
-            app.put('/productdetail/:id',upload.single('image'), async(req,res)=>{
+            app.put('/productdetail:id',upload.single('image'), async(req,res)=>{
                   // const id=req.params.id
                   // const name=req.body.name
                   // const price=req.body.price
