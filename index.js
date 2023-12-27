@@ -148,12 +148,17 @@ app.delete("/productdetail/:id",async (req,res)=>{
             res.send(result)
             })
             app.put('/productdetail/:id',upload.single('image'), async(req,res)=>{
-                  let result=await productdetail.updateOne(
-                        {_id:req.params.id},
-      
-                        {$set:req.body}
-                  )
+                  let doc=await productdetail.findById(req.params.id)
                   
+                  let result
+                  if(req.file)
+                  {let image=req.file.filename
+                  result=await doc.update({name:req.body.name,price:req.body.price,descp:req.body.descp,pcategory:req.body.pcategory,image:image})
+                  }
+                  else{
+                         result=await doc.update({name:req.body.name,price:req.body.price,descp:req.body.descp,pcategory:req.body.pcategory})
+   
+                  }
                   res.send(result)
             })
 app.listen(5000)
