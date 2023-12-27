@@ -112,8 +112,7 @@ app.get("/singleproductcategory/:id",async (req,res)=>{
 /**********end of product categoy */
 //************add product detail */
 const multer  = require('multer')
-if(file)
-{
+
 const storage = multer.diskStorage({
       destination: function (req, file, cb) {
         cb(null, './uploads')
@@ -123,7 +122,7 @@ const storage = multer.diskStorage({
         cb(null, uniqueSuffix+"-"+file.originalname)
       }
     })
-}  
+  
     const upload = multer({ storage: storage })
 app.post('/productdetail',upload.single('image'),async(req,res)=>{
       const { name, price,descp,pcategory } = req.body
