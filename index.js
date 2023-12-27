@@ -167,7 +167,7 @@ app.delete("/productdetail/:id",async (req,res)=>{
                         updates.image = image;
                     }
                           
-                    Post.findOneAndUpdate(id, {
+                    let result=productdetail.findOneAndUpdate(id, {
                             $set: updates
                         }, {
                             new: true
