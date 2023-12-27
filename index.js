@@ -149,28 +149,42 @@ app.delete("/productdetail/:id",async (req,res)=>{
             res.send(result)
             })
             app.put('/productdetail/:id',upload.single('image'), async(req,res)=>{
-                  const id=req.params.id
-                  const name=req.body.name
-                  const price=req.body.price
-                  const descp=req.body.descp
-                  const pcategory=req.body.pcategory
-                  const updates = {
-                        name,
-                        price,
-                        descp,
-                        pcategory
-                    };
+                  // const id=req.params.id
+                  // const name=req.body.name
+                  // const price=req.body.price
+                  // const descp=req.body.descp
+                  // const pcategory=req.body.pcategory
+                  // const updates = {
+                  //       name,
+                  //       price,
+                  //       descp,
+                  //       pcategory
+                  //   };
                 
-                    if (req.file) {
-                        const image = req.file.filename;
-                        updates.image = image;
-                    }
+                  //   if (req.file) {
+                  //       const image = req.file.filename;
+                  //       updates.image = image;
+                  //   }
                           
-                    let result=productdetail.findOneAndUpdate(id, {
-                            $set: updates
-                        }, {
-                            new: true
-                        })
+                  //   let result= await productdetail.findOneAndUpdate(id, {
+                  //           $set: updates
+                  //       }, {
+                  //           new: true
+                  //       })
+                  const { name, price,descp,pcategory } = req.body;
+    const imagePath = req.file ? req.file.filename: null; // Check if a new image is provided
+
+    // Find the product by ID
+    const productId = req.params.id;
+    const existingProduct = await productdetail.findById(productId)
+    existingProduct.name = name || existingProduct.name;
+    existingProduct.price = price || existingProduct.price;
+    existingProduct.descp=descp||existingProduct.descp
+    existingProduct.pcategory=pcategory||existingProduct.pcategory
+    existingProduct.imagePath = imagePath || existingProduct.imagePath;
+
+    // Save the updated product
+    let result=await existingProduct.save();
                   res.send(result)
             })
 app.listen(5000)
