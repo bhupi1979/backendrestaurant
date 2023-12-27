@@ -112,6 +112,8 @@ app.get("/singleproductcategory/:id",async (req,res)=>{
 /**********end of product categoy */
 //************add product detail */
 const multer  = require('multer')
+if(file)
+{
 const storage = multer.diskStorage({
       destination: function (req, file, cb) {
         cb(null, './uploads')
@@ -121,7 +123,7 @@ const storage = multer.diskStorage({
         cb(null, uniqueSuffix+"-"+file.originalname)
       }
     })
-    
+}  
     const upload = multer({ storage: storage })
 app.post('/productdetail',upload.single('image'),async(req,res)=>{
       const { name, price,descp,pcategory } = req.body
@@ -148,17 +150,28 @@ app.delete("/productdetail/:id",async (req,res)=>{
             res.send(result)
             })
             app.put('/productdetail/:id',upload.single('image'), async(req,res)=>{
-                  let doc=await productdetail.findById(req.params.id)
-                  
-                  let result
-                  if(req.file)
-                  {let image=req.file.filename
-                  result=await doc.update({name:req.body.name,price:req.body.price,descp:req.body.descp,pcategory:req.body.pcategory,image:image})
-                  }
-                  else{
-                         result=await doc.update({name:req.body.name,price:req.body.price,descp:req.body.descp,pcategory:req.body.pcategory})
-   
-                  }
+                  const id=req.params.id
+                  const name=req.body.name
+                  const price=req.body.price
+                  const descp=req.body.descp
+                  const pcategory=req.body.pcategory
+                  const updates = {
+                        name,
+                        price,
+                        descp,
+                        pcategory
+                    };
+                
+                    if (req.file) {
+                        const image = req.file.filename;
+                        updates.image = image;
+                    }
+                          
+                    Post.findOneAndUpdate(id, {
+                            $set: updates
+                        }, {
+                            new: true
+                        })
                   res.send(result)
             })
 app.listen(5000)
