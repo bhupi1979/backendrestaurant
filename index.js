@@ -137,9 +137,23 @@ app.get('/showproductdetail',async(req,res)=>{
       res.send(pc)
       //console.warn(result)
 })
-app.delete("/productdetail/:id",async (req,res)=>{
+app.delete("/productdetail/:id",async (req,res)=>{   
 
       const result= await productdetail.deleteOne({_id:req.params.id})
       res.send(result)
       })
+      app.get("/singleproductdetail/:id",async (req,res)=>{
+
+            let result= await productdetail.findOne({_id:req.params.id})
+            res.send(result)
+            })
+            app.put('/productdetail/:id',upload.single('image'), async(req,res)=>{
+                  let result=await productdetail.updateOne(
+                        {_id:req.params.id},
+      
+                        {$set:req.body}
+                  )
+                  
+                  res.send(result)
+            })
 app.listen(5000)
