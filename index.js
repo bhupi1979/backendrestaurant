@@ -176,7 +176,7 @@ app.delete("/productdetail/:id",async (req,res)=>{
             })
             app.get("/pitem/:id",async (req,res)=>{
 
-                  let result= await productdetail.findOne({pcategory:req.params.id})
+                  let result= await productdetail.find({pcategory:req.params.id})
                   res.send(result)
                   })
                   /*************end of product details */
