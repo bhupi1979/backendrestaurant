@@ -188,6 +188,13 @@ app.delete("/productdetail/:id",async (req,res)=>{
       res.send(result)
       //console.warn(result)
 })   
+app.get('/management',async(req,res)=>{
+      let pc=mtable.find()
+      //console.log('the result is'+req.body.password)
+      
+      res.send(pc)
+      //console.warn(result)
+})   
 app.put('/updatemanagement/:id', async(req,res)=>{
       let result=await mtable.updateOne(
             {_id:req.params.id},
