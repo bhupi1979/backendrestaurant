@@ -202,7 +202,7 @@ app.put('/updatemanagement/:id', async(req,res)=>{
       )
       res.send(result)
 })
-app.post('/managementsale',async(req,res)=>{
+app.get('/managementsale',async(req,res)=>{
       let pc= await mtable.find({printqt:1})
       //console.log('the result is'+req.body.password)
       
