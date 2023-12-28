@@ -181,7 +181,7 @@ app.delete("/productdetail/:id",async (req,res)=>{
                   })
                   /*************end of product details */
     /************starts of managament mtable */              
-    app.post('./management',async(req,res)=>{
+    app.post('/management',async(req,res)=>{
       let pc=new mtable(req.body)
       //console.log('the result is'+req.body.password)
       let result= await pc.save()
