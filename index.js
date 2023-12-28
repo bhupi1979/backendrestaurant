@@ -189,7 +189,7 @@ app.delete("/productdetail/:id",async (req,res)=>{
       //console.warn(result)
 })   
 app.get('/management',async(req,res)=>{
-      let pc=mtable.find()
+      let pc= await mtable.find()
       //console.log('the result is'+req.body.password)
       
       res.send(pc)
