@@ -189,7 +189,7 @@ app.delete("/productdetail/:id",async (req,res)=>{
       //console.warn(result)
 })   
 app.put('/updatemanagement/:id', async(req,res)=>{
-      let result=await productcategory.updateOne(
+      let result=await mtable.updateOne(
             {_id:req.params.id},
             {$set:req.body}
       )
