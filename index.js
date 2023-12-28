@@ -8,7 +8,7 @@ const user = require('./db/user')
 const infra = require('./db/Infra')
 const productcategory = require('./db/productcategory.js')
 const productdetail = require('./db/productdetail.js')
-
+const mtable=require('./db/mtable.js')
 //app.use(express.static('dist'))
 app.use(express.json()) // Make sure this middleware is applied before your route
 app.use(cors())
@@ -174,4 +174,25 @@ app.delete("/productdetail/:id",async (req,res)=>{
       res.status(500).json({ error: 'Internal Server Error' });
   }
             })
+            app.get("/pitem/:id",async (req,res)=>{
+
+                  let result= await productdetail.findOne({pcategory:req.params.id})
+                  res.send(result)
+                  })
+                  /*************end of product details */
+    /************starts of managament mtable */              
+    app.post('./management',async(req,res)=>{
+      let pc=new mtable(req.body)
+      //console.log('the result is'+req.body.password)
+      let result= await pc.save()
+      res.send(result)
+      //console.warn(result)
+})   
+app.put('/updatemanagement/:id', async(req,res)=>{
+      let result=await productcategory.updateOne(
+            {_id:req.params.id},
+            {$set:req.body}
+      )
+      res.send(result)
+})
 app.listen(5000)
