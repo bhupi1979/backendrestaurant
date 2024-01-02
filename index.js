@@ -129,8 +129,9 @@ const storage = multer.diskStorage({
 app.post('/productdetail',upload.single('image'),async(req,res)=>{
       const { name, price,descp,pcategory } = req.body
       //let image=req.file.filename
-      const image= await cld.uploader.upload(req.file.path)
-      console.log(image)
+      const image1= await cld.uploader.upload(req.file.path)
+      console.log(image1)
+       let image=image1.url
       let pdetail=new productdetail({name,price,descp,pcategory,image})
       let result= await pdetail.save()
      res.send(result)
@@ -167,7 +168,7 @@ app.delete("/productdetail/:id",async (req,res)=>{
     existingProduct.price = price || existingProduct.price;
     existingProduct.descp=descp||existingProduct.descp
     existingProduct.pcategory=pcategory||existingProduct.pcategory
-    existingProduct.image=imagePath||existingProduct.image
+    existingProduct.image=imagePath.url||existingProduct.image
 
     // Save the updated product
     let result=await existingProduct.save();
