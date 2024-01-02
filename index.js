@@ -157,7 +157,8 @@ app.delete("/productdetail/:id",async (req,res)=>{
                   try {   
                   const { name, price,descp,pcategory } = req.body;
     //const imagePath = req.file ? req.file.filename: null; // Check if a new image is provided
-    const imagePath= await cld.uploader.upload(req.file.path)
+    
+    const imagePath= req.file?await cld.uploader.upload(req.file.path):null
     // Find the product by ID
     const productId = req.params.id;
     const existingProduct = await productdetail.findById(productId)
