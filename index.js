@@ -113,6 +113,7 @@ app.get("/singleproductcategory/:id",async (req,res)=>{
 /**********end of product categoy */
 //************add product detail */
 const multer  = require('multer')
+const cld=require("./cldconfig.js")
 
 const storage = multer.diskStorage({
       destination: function (req, file, cb) {
@@ -127,7 +128,9 @@ const storage = multer.diskStorage({
      const upload = multer({ storage: storage })
 app.post('/productdetail',upload.single('image'),async(req,res)=>{
       const { name, price,descp,pcategory } = req.body
-      let image=req.file.filename
+      //let image=req.file.filename
+      const image= await cld.uploader.upload(req.file.path)
+      console.log(image)
       let pdetail=new productdetail({name,price,descp,pcategory,image})
       let result= await pdetail.save()
      res.send(result)
@@ -152,8 +155,8 @@ app.delete("/productdetail/:id",async (req,res)=>{
             app.put('/productdetail/:id',upload.single('image'), async(req,res)=>{
                   try {   
                   const { name, price,descp,pcategory } = req.body;
-    const imagePath = req.file ? req.file.filename: null; // Check if a new image is provided
-
+    //const imagePath = req.file ? req.file.filename: null; // Check if a new image is provided
+    const imagePath= await cld.uploader.upload(req.file.path)
     // Find the product by ID
     const productId = req.params.id;
     const existingProduct = await productdetail.findById(productId)
