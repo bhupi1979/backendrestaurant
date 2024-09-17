@@ -223,4 +223,7 @@ app.get('/managementsale',async(req,res)=>{
       res.send(pc)
       //console.warn(result)
 })   
-app.listen(5000)
+const port=5000;
+app.listen(port,()=>{
+      console.log('the server is running on port500');
+})
