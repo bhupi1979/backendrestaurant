@@ -20,6 +20,13 @@ app.use('/uploads', express.static('uploads'));
 //       next();
 //     });
 //api for registration
+app.get('/bhupi',async(req,res)=>{
+      console.log('the server is running')
+      //cdconsole.log('the result is'+req.body.password)
+      //let result= await infra1.find().exec()
+      res.send("this is express is running")
+      //console.warn(result)
+})
 app.post('/register',async(req,res)=>{
       let user1=new user(req.body)
       console.log('the result is'+req.body.password)
